@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import InputForm from './components/InputForm';
+import MessageDisplay from './components/MessageDisplay';
+import { useLocalStorage } from './hooks/useLocalStorage';
+
+interface DailyRecord {
+  date: string;
+  things: string[];
+}
 
 function App() {
 
-  const [thing1, setThing1] = useState('');
-  const [thing2, setThing2] = useState('');
-  const [thing3, setThing3] = useState('');
+  const [thing1, setThing1] = useLocalStorage('thing1', '');
+  const [thing2, setThing2] = useLocalStorage('thing2', '');
+  const [thing3, setThing3] = useLocalStorage('thing3', '');
   const [message, setMessage] = useState('');
+  const [records, setRecords] = useLocalStorage('records', '[]');
 
   useEffect(() => {
     if(message) {
@@ -20,12 +28,40 @@ function App() {
   },[message]);
 
   const handleRecord = () => {
+
+    const todayThings = [thing1, thing2, thing3].filter(thing => thing.trim() !== '');
+
+    if (todayThings.length < 3) {
+      setMessage('絶対3つはえらいがあるはず！よく思い出して');
+      return;
+    }
+
+    const today = new Date().toLocaleDateString('sv-SE');
+    const existingRecords: DailyRecord[] = JSON.parse(records);
+
+    const existingIndex = existingRecords.findIndex(record => record.date === today);
+
+    const newRecord: DailyRecord = {
+      date: today,
+      things: todayThings,
+    };
+
+    if (existingIndex >= 0) {
+      existingRecords[existingIndex] = newRecord;
+      setMessage('今日のえらいを更新しました！すごくえらい！')
+    } else {
+      existingRecords.push(newRecord);
+      setMessage('今日のえらいを記録しました！えらい！')
+    }
+
+    setRecords(JSON.stringify(existingRecords));
+
     setThing1('');
     setThing2('');
     setThing3('');
-    setMessage('記録しました！');
 
   }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -40,10 +76,28 @@ function App() {
           setThing3={setThing3}
           onRecord={handleRecord}
         />
-        {message && <p style={{color: 'green'}}>{message}</p>}
-        <p>えらいこと1:{thing1 || "えらいことを入力してね"}</p>
-        <p>えらいこと2:{thing2 || "えらいことを入力してね"}</p>
-        <p>えらいこと3:{thing3 || "えらいことを入力してね"}</p>
+        <MessageDisplay message={message} />
+        <div style={{ marginTop: '2rem', textAlign: 'left'}}>
+          <h2>📅 記録履歴</h2>
+          {JSON.parse(records).length === 0 ? (
+            <p>まだ記録がありません</p>
+          ) : (
+            JSON.parse(records)
+            .sort((a: DailyRecord, b: DailyRecord) => b.date.localeCompare(a.date))
+            .map((record: DailyRecord, index:number) => (
+              <div key={index} style={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
+                <h3>{record.date}</h3>
+                <ul>
+                  {record.things.map((thing, i) => (
+                    <li key={i}>{thing}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          )
+
+          }
+        </div>
       </header>
     </div>
   );
