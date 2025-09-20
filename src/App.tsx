@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import InputForm from './components/InputForm';
-import MessageDisplay from './components/MessageDisplay';
+import InputForm from './components/InputForm/InputForm';
+import MessageDisplay from './components/MessageDisplay/MessageDisplay';
 import { useLocalStorage } from './hooks/useLocalStorage';
 
 interface DailyRecord {
@@ -9,18 +9,23 @@ interface DailyRecord {
   things: string[];
 }
 
+interface Message {
+  text: string;
+  type: 'success' | 'error' | 'info';
+}
+
 function App() {
 
   const [thing1, setThing1] = useLocalStorage('thing1', '');
   const [thing2, setThing2] = useLocalStorage('thing2', '');
   const [thing3, setThing3] = useLocalStorage('thing3', '');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState<Message | null>(null);
   const [records, setRecords] = useLocalStorage('records', '[]');
 
   useEffect(() => {
     if(message) {
       const timer = setTimeout(() => {
-        setMessage('');
+        setMessage(null);
       },3000);
     
       return () => clearTimeout(timer);
@@ -32,7 +37,10 @@ function App() {
     const todayThings = [thing1, thing2, thing3].filter(thing => thing.trim() !== '');
 
     if (todayThings.length < 3) {
-      setMessage('絶対3つはえらいがあるはず！よく思い出して');
+      setMessage({
+        text: '絶対3つはえらいがあるはず！よく思い出して',
+        type: 'error'
+    });
       return;
     }
 
@@ -48,10 +56,16 @@ function App() {
 
     if (existingIndex >= 0) {
       existingRecords[existingIndex] = newRecord;
-      setMessage('今日のえらいを更新しました！すごくえらい！')
+      setMessage({
+        text:'今日のえらいを更新しました！すごくえらい！',
+        type: 'success'
+    })
     } else {
       existingRecords.push(newRecord);
-      setMessage('今日のえらいを記録しました！えらい！')
+      setMessage({
+        text: '今日のえらいを記録しました！えらい！',
+        type:'success'
+    })
     }
 
     setRecords(JSON.stringify(existingRecords));

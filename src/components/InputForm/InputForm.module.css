@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-base);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 var(--space-base);
+  box-sizing: border-box;
+}
+
+.input {
+  padding: var(--space-base) var(--space-md);
+  border: 2px solid var(--color-gray-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-base);
+  width: 100%;
+  min-width: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  outline: none;
+  line-height: var(--leading-normal);
+  transition: border-color 0.2s;
+}
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.button {
+  padding: var(--space-base) var(--space-lg);
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-base);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.05s;
+  width: 100%;
+  min-width: 0;
+  margin: var(--space-sm) 0 0;
+  line-height: var(--leading-normal);
+
+  /* モバイル対応 */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.button:hover {
+  background-color: var(--color-primary-hover);
+}
+.button:active {
+  transform: translateY(0.5px);
+  background-color: var(--color-primary-active);
+}
+
+
+/* レスポンシブ設計 */
+@media (min-width: 640px) {
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .container {
+    max-width: none;
+    padding: 0 var(--space-md);
+  }
+
+  .input, .button {
+    font-size: var(--font-md);
+    padding: var(--space-md);
+  }
+}
