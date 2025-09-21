@@ -12,32 +12,40 @@ interface InputFormProps {
 }
 
 const InputForm = ({thing1, thing2, thing3, setThing1, setThing2, setThing3, onRecord}:InputFormProps) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onRecord();
+  };
 
   return (
-    <div className={styles.container}>
+    <form aria-label='えらいこと入力フォーム' className={styles.container} onSubmit={handleSubmit}>
       <input 
+        aria-label='１つ目のえらいこと'
         value={thing1} 
         onChange={(e) => setThing1(e.target.value)}
         placeholder='例：早寝できた'
         className={styles.input}
       />
       <input 
+        aria-label='2つ目のえらいこと'
         value={thing2} 
         onChange={(e) => setThing2(e.target.value)}
         placeholder='例：ジムで運動できた'
         className={styles.input}
       />
       <input 
+        aria-label='3つ目のえらいこと'
         value={thing3} 
         onChange={(e) => setThing3(e.target.value)}
         placeholder='例：洗濯できた'
         className={styles.input}
       />
       <button 
-      onClick={onRecord}
-      className={styles.button}
-    >記録する</button>
-    </div>
+        type='submit'
+        aria-describedby='status-message'
+        className={styles.button}
+      >記録する</button>
+    </form>
   );
 };
 
