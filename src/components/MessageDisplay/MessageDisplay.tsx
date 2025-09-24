@@ -23,16 +23,28 @@ const getMessageClass = (type: 'success' | 'error' | 'info') => {
     }
 };
 
+const GetAriaLive = (type: 'success' | 'error' | 'info'): 'assertive' | 'polite' => {
+  switch (type) {
+    case 'error':
+      return 'assertive';
+    case 'success':
+    case 'info':
+      return 'polite';
+    default:
+      return 'polite';
+  }
+};
+
 const MessageDisplay = ({message}:MessageDisplayProps) => {
   return (
     <div className={styles.container}>
       <div
-        aria-live="polite"
+        aria-live={message ? GetAriaLive(message.type) : 'polite'}
         aria-atomic="true"
         role="status"
         className={`${styles.message} ${message ? getMessageClass(message.type) : ''}`}
         id='status-message'>
-        {message?.text || '\u00A0'}
+        {message?.text}
       </div>
     </div>
   );

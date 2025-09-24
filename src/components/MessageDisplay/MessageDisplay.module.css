@@ -13,7 +13,8 @@
   font-weight: var(--weight-medium);
   font-size: var(--font-sm);
   line-height: var(--leading-normal);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  color: transparent;  /* 初期状態を透明に */
   width: 100%;
   box-sizing:border-box;
 }

@@ -1,0 +1,38 @@
+.card {
+  /* 基本レイアウト+日記帳の紙質感 */
+  background-color: #fdfcfb;
+  border-radius: 16px;
+  box-shadow: 
+    0 2px 8px rgba(69, 52, 38, 0.08), 
+    0 1px 3px rgba(69, 52, 38, 0.12);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  max-width: 500px;
+  margin: 0 auto var(--space-lg) auto;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.dateHeader {
+  /* 日付部分のスタイリング */
+  color: var(--color-primary);
+  font-size: var(--font-lg);
+  font-weight: var(--weight-semibold);
+  margin: 0 0 var(--space-base) 0;
+}
+
+.thingList {
+  /* リスト全体のスタイル */
+  margin: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.thingItem {
+  /* 各項目のスタイル */
+  margin-bottom: var(--space-xs);
+}
+.thingItem::before {
+  content: "✔ ";
+  color: var(--color-primary);
+}

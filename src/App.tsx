@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import InputForm from './components/InputForm/InputForm';
 import MessageDisplay from './components/MessageDisplay/MessageDisplay';
+import RecordCard from './components/RecordCard/RecordCard';
 import { useLocalStorage } from './hooks/useLocalStorage';
 
 interface DailyRecord {
@@ -99,14 +100,11 @@ function App() {
             JSON.parse(records)
             .sort((a: DailyRecord, b: DailyRecord) => b.date.localeCompare(a.date))
             .map((record: DailyRecord, index:number) => (
-              <div key={index} style={{ marginBottom: '1rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
-                <h3>{record.date}</h3>
-                <ul>
-                  {record.things.map((thing, i) => (
-                    <li key={i}>{thing}</li>
-                  ))}
-                </ul>
-              </div>
+              <RecordCard
+                key={index}
+                date={record.date}
+                things={record.things}
+              />
             ))
           )
 

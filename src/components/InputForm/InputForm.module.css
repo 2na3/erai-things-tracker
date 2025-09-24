@@ -7,11 +7,20 @@
   margin: 0 auto;
   padding: 0 var(--space-base);
   box-sizing: border-box;
+
+  /* 紙らしい質感を追加 */
+  background-color: #fdfcfb;
+  border-radius: 16px;
+  box-shadow:
+    0 2px 8px rgba(69, 52, 38, 0.08),
+    0 1px 3px rgba(69, 52, 38, 0.12);
+  padding: var(--space-lg);
+  border: 1px solid #f0f0f0;
 }
 
 .input {
   padding: var(--space-base) var(--space-md);
-  border: 2px solid var(--color-gray-border);
+  border: 2px solid #e7e3df;
   border-radius: var(--radius-md);
   font-size: var(--font-base);
   width: 100%;
@@ -24,7 +33,7 @@
 }
 .input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(224, 122, 95, 0.15);
 }
 
 .button {
@@ -66,7 +75,7 @@
 @media (max-width: 639px) {
   .container {
     max-width: none;
-    padding: 0 var(--space-md);
+    padding: var(--space-lg) var(--space-md);
   }
 
   .input, .button {
