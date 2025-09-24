@@ -9,7 +9,7 @@
 .message {
   margin: var(--space-sm) 0;
   padding: var(--space-base) var(--space-md);
-  border-radius: var(--radius-base);
+  border-radius: 16px;
   font-weight: var(--weight-medium);
   font-size: var(--font-sm);
   line-height: var(--leading-normal);
@@ -23,18 +23,27 @@
   color: var(--color-success);
   background-color: var(--color-success-bg);
   border: 1px solid var(--color-success-border);
+  box-shadow: 
+    0 2px 8px rgba(16, 185, 129, 0.08), 
+    0 1px 3px rgba(16, 185, 129, 0.12);
 }
 
 .error {
   color: var(--color-error);
   background-color: var(--color-error-bg);
   border: 1px solid var(--color-error-border);
+  box-shadow: 
+    0 2px 8px rgba(239, 68, 68, 0.08), 
+    0 1px 3px rgba(239, 68, 68, 0.12);
   }
 
 .info {
   color: var(--color-info);
   background-color: var(--color-info-bg);
   border: 1px solid var(--color-info-border);
+  box-shadow: 
+    0 2px 8px rgba(59, 130, 246, 0.08), 
+    0 1px 3px rgba(59, 130, 246, 0.12);
 }
 
 .unknown {
@@ -50,6 +59,9 @@
   transition: all 0.2s ease-in-out;
   width: 100%;
   box-sizing: border-box;
+  box-shadow: 
+    0 2px 8px rgba(69, 52, 38, 0.08), 
+    0 1px 3px rgba(69, 52, 38, 0.12);
 }
 .unknown::before {
   content: "⚠️ ";

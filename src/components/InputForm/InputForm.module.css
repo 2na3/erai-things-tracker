@@ -55,6 +55,13 @@
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
+.button:focus {
+  outline: none;
+  box-shadow: 
+    0 0 0 3px rgba(224, 122, 95, 0.3),  /* テラコッタのフォーカスリング */
+    0 0 0 1px var(--color-primary);
+    background-color: var(--color-primary-hover);
+}
 .button:hover {
   background-color: var(--color-primary-hover);
 }
